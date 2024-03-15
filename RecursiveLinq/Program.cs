@@ -7,7 +7,7 @@
             var inputCharacters = new List<char> { 'a', 'b', 'c' };
             Program p = new Program();
 
-            var allSequences = p.GetAllSequences(inputCharacters.AsEnumerable());
+            var allSequences = p.GetAllSequences(inputCharacters);
 
             foreach (var sequence in allSequences)
             {
@@ -17,7 +17,7 @@
 
         IEnumerable<string> GetAllSequences(IEnumerable<char> chars)
         {
-            return GetAllSequencesRec(chars.ToList(), new List<string>());
+            return GetAllSequencesRec(chars, new List<string>());
         }
 
         public static IEnumerable<string> GetAllSequencesRec(IEnumerable<char> remainedCharacters, IEnumerable<string> resultedCombinations)
@@ -40,11 +40,13 @@
                     }
                     else // Добавление символа в конец каждой созданной комбинации
                     {
-                        for (int i = 0; i < resultedCombinations.Count(); i++)
+                        for (int i = 0; i < resultedCombinations.Count(); i++) //ITERATOR COUNT
                         {
                             tempCombinations[i] += character;
                         }
                     }
+
+                    //iterator
 
                     // Новые комбинации без добавления этого символа
                     var appended = GetAllSequencesRec(remainedCharacters.Where(c => c != character), tempCombinations);
